@@ -7,12 +7,12 @@ import {
     CartAction,
 } from 'actions/cartAction';
 import { createReducer } from 'typesafe-actions';
-import { IProductItem } from 'src/models/IProductItem';
+import { ICartItem } from 'src/models/ICartItem';
 
 export type CartState = {
     cartItemCounts: number;
-    cartItems: IProductItem[];
-    selectedItems: IProductItem[];
+    cartItems: ICartItem[];
+    selectedItems: ICartItem[];
     price: number;
     error?: string;
 };
