@@ -7,7 +7,6 @@ export const REMOVE_ALL_PRODUCT_FROM_CART = 'REMOVE_ALL_PRODUCT_FROM_CART';
 
 export const SELECT_PRODUCT_AT_CART = 'SELECT_BUYING_PRODUCT_AT_CART';
 export const SELECT_ALL_PRODUCT_AT_CART = 'SELECT_ALL_PRODUCT_AT_CART';
-export const PURCHASE_PRODUCT_AT_CART = 'PURCHASE_PRODUCT_AT_CART';
 
 const { createStandardAction } = deprecated;
 
@@ -21,11 +20,11 @@ export const addProductToCart = createStandardAction(ADD_PRODUCT_TO_CART)<
 
 /* ============================= *
  * 카트에서 상품을 제거하는 액션 *
- * TPayload : 상품 객체 ID       *
+ * TPayload : 상품 객체          *
  * ============================= */
 export const removeProductFromCart = createStandardAction(
     REMOVE_PRODUCT_FROM_CART,
-)<string>();
+)<ProductItem>();
 
 /* ============================= *
  * 카트에서 상품을 제거하는 액션 *
@@ -37,10 +36,10 @@ export const removeAllProductFromCart = createStandardAction(
 
 /* ========================================== *
  * 카트에서 구매할 상품을 선택, 취소하는 액션 *
- * TPayload : 상품 객체 ID                    *
+ * TPayload : 상품 객체                       *
  * ========================================== */
 export const selectProductAtCart = createStandardAction(SELECT_PRODUCT_AT_CART)<
-    string
+    ProductItem
 >();
 
 /* =============================================== *
@@ -51,21 +50,12 @@ export const selectAllProductAtCart = createStandardAction(
     SELECT_ALL_PRODUCT_AT_CART,
 )();
 
-/* ================================== *
- * 카트의 선택된 상품을 구매하는 액션 *
- * TPayload : void                    *
- * ================================== */
-export const purchaseProductAtCart = createStandardAction(
-    PURCHASE_PRODUCT_AT_CART,
-)();
-
 const actions = {
     addProductToCart,
     removeProductFromCart,
     removeAllProductFromCart,
     selectProductAtCart,
     selectAllProductAtCart,
-    purchaseProductAtCart,
 };
 
 export type CartAction = ActionType<typeof actions>;
