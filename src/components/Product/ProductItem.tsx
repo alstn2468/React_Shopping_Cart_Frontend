@@ -114,7 +114,7 @@ const ProductButton = styled.button`
     display: flex;
     justify-content: center;
     align-items: center;
-    width: auto;
+    width: 140px;
     height: 30px;
     background: #000000;
     color: #ffffff;
