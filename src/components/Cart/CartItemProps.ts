@@ -9,3 +9,7 @@ export type ProductTopInfoTextProp = {
 export type ApplyCouponButtonProp = {
     availableCoupon: boolean;
 };
+
+export type CheckBoxProp = {
+    isSelected: boolean;
+};

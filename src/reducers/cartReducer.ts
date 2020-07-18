@@ -1,16 +1,13 @@
 import {
     ADD_PRODUCT_TO_CART,
     REMOVE_PRODUCT_FROM_CART,
-    REMOVE_ALL_PRODUCT_FROM_CART,
     INCREASE_CART_PRODUCT_AMOUNT,
     DECREASE_CART_PRODUCT_AMOUNT,
     SELECT_PRODUCT_AT_CART,
-    SELECT_ALL_PRODUCT_AT_CART,
     CartAction,
 } from 'actions/cartAction';
 import { createReducer } from 'typesafe-actions';
 import { ICartItem } from 'src/models/ICartItem';
-import productItem from 'data/productItem';
 
 export type CartState = {
     cartItemCounts: number;
@@ -49,14 +46,13 @@ const cartReducer = createReducer<CartState, CartAction>(initialState, {
             cartItemCounts: state.cartItemCounts - 1,
         };
     },
-    [REMOVE_ALL_PRODUCT_FROM_CART]: (state) => {
-        return { ...state, ...initialState };
-    },
     [INCREASE_CART_PRODUCT_AMOUNT]: (state, action) => {
+        let productPrice = 0;
         return {
             ...state,
             cartItems: state.cartItems.map((cartItem) => {
                 if (cartItem.id === action.payload) {
+                    productPrice = cartItem.price;
                     return {
                         ...cartItem,
                         amount: cartItem.amount + 1,
@@ -66,13 +62,16 @@ const cartReducer = createReducer<CartState, CartAction>(initialState, {
                     ...cartItem,
                 };
             }),
+            price: state.price + productPrice,
         };
     },
     [DECREASE_CART_PRODUCT_AMOUNT]: (state, action) => {
+        let productPrice = 0;
         return {
             ...state,
             cartItems: state.cartItems.map((cartItem) => {
                 if (cartItem.id === action.payload && cartItem.amount > 1) {
+                    productPrice = cartItem.price;
                     return {
                         ...cartItem,
                         amount: cartItem.amount - 1,
@@ -82,6 +81,7 @@ const cartReducer = createReducer<CartState, CartAction>(initialState, {
                     ...cartItem,
                 };
             }),
+            price: state.price - productPrice,
         };
     },
     [SELECT_PRODUCT_AT_CART]: (state, action) => {
@@ -97,20 +97,11 @@ const cartReducer = createReducer<CartState, CartAction>(initialState, {
                 }
                 return { ...cartItem };
             }),
-            price: state.price + product.price * product.amount,
-        };
-    },
-    [SELECT_ALL_PRODUCT_AT_CART]: (state) => {
-        return {
-            ...state,
-            cartItems: state.cartItems.map((cartItem) => ({
-                ...cartItem,
-                isSelected: true,
-            })),
-            price: state.cartItems.reduce(
-                (accumulator, currentValue) => accumulator + currentValue.price,
-                0,
-            ),
+            price:
+                state.price +
+                (product.isSelected
+                    ? -(product.price * product.amount)
+                    : product.price * product.amount),
         };
     },
 });

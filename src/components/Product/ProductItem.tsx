@@ -10,8 +10,10 @@ import { ICartItem } from 'src/models/ICartItem';
 import {
     ProductPriceProps,
     ProductItemProps,
+    ProductButtonProps,
 } from 'components/Product/ProductProps';
 import { addProductToCart, removeProductFromCart } from 'actions/cartAction';
+import { numberWithComma } from 'utils/numberWithComma';
 
 const ProductItemContainer = styled.li`
     display: inline-flex;
@@ -112,18 +114,18 @@ const Divisor = styled.hr`
     border: 1px solid rgb(242, 244, 245);
 `;
 
-const ProductButton = styled.button`
+const ProductButton = styled.button<ProductButtonProps>`
     display: flex;
     justify-content: center;
     align-items: center;
     width: 120px;
     height: 30px;
-    background: #000000;
+    background: ${(prop) => (prop.isPointer ? '#000000' : '#c2c2c2')};
     color: #ffffff;
     border-radius: 5px;
     padding: 0 8px;
     border: 1px solid #ffffff;
-    cursor: pointer;
+    cursor: ${(prop) => prop.isPointer && 'pointer'};
 
     &:focus {
         outline: none;
@@ -186,7 +188,7 @@ function ProductItem({
                             availableCoupon={availableCoupon}
                             color="rgb(27, 28, 29)"
                         >
-                            {price}원
+                            {numberWithComma(price)}원
                         </ProductPrice>
                         {availableCoupon && (
                             <>
@@ -206,6 +208,7 @@ function ProductItem({
                                 ? () => dispatch(removeProductFromCart(item))
                                 : () => dispatch(addProductToCart(item))
                         }
+                        isPointer={isInCart || cartItemCounts < 3}
                     >
                         {isInCart ? (
                             <>

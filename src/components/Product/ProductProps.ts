@@ -8,3 +8,7 @@ export type ProductPriceProps = {
 export interface ProductItemProps extends IProductItem {
     isInCart: boolean;
 }
+
+export type ProductButtonProps = {
+    isPointer: boolean;
+};

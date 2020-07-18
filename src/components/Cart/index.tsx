@@ -1,14 +1,11 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { AiOutlineShopping } from 'react-icons/ai';
 import { RootState } from 'reducers';
-import {
-    selectAllProductAtCart,
-    removeAllProductFromCart,
-} from 'actions/cartAction';
 import CartItem from 'components/Cart/CartItem';
 import { ICartItem } from 'models/ICartItem';
+import { numberWithComma } from 'utils/numberWithComma';
 
 const CartListContainer = styled.div`
     display: flex;
@@ -104,15 +101,21 @@ function Cart() {
                     <PurchaseContainer>
                         <PurchaseTextContainer>
                             <PurchaseTextLabel>상품 금액</PurchaseTextLabel>
-                            <PurchaseText>{price}원</PurchaseText>
+                            <PurchaseText>
+                                {numberWithComma(price)}원
+                            </PurchaseText>
                         </PurchaseTextContainer>
                         <PurchaseTextContainer>
                             <PurchaseTextLabel>할인 금액</PurchaseTextLabel>
-                            <PurchaseText>{price}원</PurchaseText>
+                            <PurchaseText>
+                                {numberWithComma(price)}원
+                            </PurchaseText>
                         </PurchaseTextContainer>
                         <PurchaseTextContainer>
                             <PurchaseTextLabel>총 금액</PurchaseTextLabel>
-                            <PurchaseText>{price}원</PurchaseText>
+                            <PurchaseText>
+                                {numberWithComma(price)}원
+                            </PurchaseText>
                         </PurchaseTextContainer>
                         <PurchaseButton>구매하기</PurchaseButton>
                     </PurchaseContainer>
