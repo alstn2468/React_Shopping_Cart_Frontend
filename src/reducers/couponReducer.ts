@@ -9,12 +9,14 @@ import {
     CouponAction,
 } from 'actions/couponAction';
 import { createReducer } from 'typesafe-actions';
-import { ICouponItem } from 'src/models/ICouponItem';
+import { ICouponItem } from 'models/ICouponItem';
+import { IProductItem } from 'models/IProductItem';
 
 export type CouponState = {
     loading: boolean;
     isOpen: boolean;
     coupons: ICouponItem[];
+    selectedProductId: string;
     error?: string;
 };
 
@@ -22,6 +24,7 @@ const initialState: CouponState = {
     loading: false,
     isOpen: false,
     coupons: [],
+    selectedProductId: '',
     error: null,
 };
 
@@ -49,8 +52,16 @@ const couponReducer = createReducer<CouponState, CouponAction>(initialState, {
         loading: false,
         error: action.payload,
     }),
-    [OPEN_COUPON_MODAL_DIALOG]: (state) => ({ ...state, isOpen: true }),
-    [CLOSE_COUPON_MODAL_DIALOG]: (state) => ({ ...state, isOpen: false }),
+    [OPEN_COUPON_MODAL_DIALOG]: (state, action) => ({
+        ...state,
+        isOpen: true,
+        selectedProductId: action.payload,
+    }),
+    [CLOSE_COUPON_MODAL_DIALOG]: (state) => ({
+        ...state,
+        isOpen: false,
+        selectedProductId: '',
+    }),
 });
 
 export default couponReducer;

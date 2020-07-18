@@ -47,11 +47,11 @@ export const fetchCouponList = createAsyncAction(
 
 /* ========================== *
  * 쿠폰 목록 모달을 여는 액션 *
- * TPayload : void            *
+ * TPayload : 상품 객체 ID    *
  * ========================== */
 export const openCouponModalDialog = createStandardAction(
     OPEN_COUPON_MODAL_DIALOG,
-)();
+)<string>();
 
 /* ========================== *
  * 쿠폰 목록 모달을 닫는 액션 *

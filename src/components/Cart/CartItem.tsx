@@ -312,7 +312,7 @@ function CartItem({
                 <ApplyCouponButton
                     disabled={!availableCoupon}
                     availableCoupon={availableCoupon}
-                    onClick={() => dispatch(openCouponModalDialog())}
+                    onClick={() => dispatch(openCouponModalDialog(id))}
                 >
                     {availableCoupon ? '쿠폰 적용하기' : '쿠폰 적용 불가'}
                 </ApplyCouponButton>

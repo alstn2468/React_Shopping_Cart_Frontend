@@ -45,9 +45,9 @@ export function getCouponList(): ThunkAction<
         dispatch(request());
 
         try {
-            const couponList: ICouponItem[] = [...coupons];
-
             await new Promise((resolve) => setTimeout(resolve, 1000));
+
+            const couponList: ICouponItem[] = [...coupons];
 
             dispatch(success({ coupons: couponList }));
         } catch (e) {
