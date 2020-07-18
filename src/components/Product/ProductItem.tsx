@@ -15,6 +15,22 @@ import {
 import { addProductToCart, removeProductFromCart } from 'actions/cartAction';
 import { numberWithComma } from 'utils/numberWithComma';
 
+const ProductImageContainer = styled.div`
+    width: 100%;
+    height: 240px;
+    border-radius: 10px;
+    overflow: hidden;
+    backface-visibility: hidden;
+    transform: translate3d(0, 0, 0);
+`;
+
+const ProductImage = styled.img`
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+`;
+
 const ProductItemContainer = styled.li`
     display: inline-flex;
     min-width: 30%;
@@ -27,24 +43,15 @@ const ProductItemContainer = styled.li`
     position: relative;
 
     &:hover {
-        .product-image {
+        ${ProductImage} {
             transform: scale(1.1);
+            border-radius: 10px;
+        }
+
+        ${ProductImageContainer} {
+            border-radius: 10px;
         }
     }
-`;
-
-const ProductImageContainer = styled.div`
-    width: 100%;
-    height: 240px;
-    border-radius: 10px;
-    overflow: hidden;
-`;
-
-const ProductImage = styled.img`
-    width: 100%;
-    height: 240px;
-    object-fit: cover;
-    transition: transform 0.4s ease;
 `;
 
 const ProductDetailContainer = styled.div`
@@ -173,7 +180,7 @@ function ProductItem({
     return (
         <ProductItemContainer>
             <ProductImageContainer>
-                <ProductImage src={coverImage} className="product-image" />
+                <ProductImage src={coverImage} />
             </ProductImageContainer>
             <ProductDetailContainer>
                 <ProductTitle>{title}</ProductTitle>
