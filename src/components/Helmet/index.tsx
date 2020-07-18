@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Helmet as BaseHelmet } from 'react-helmet';
 import Favicon from 'assets/images/favicon.ico';
-import MetaImage from 'assets/images/meta-image.jpg';
 import { HelmetProps } from 'components/Helmet/HelmetProps';
 
 function Helmet({ title, description }: HelmetProps): React.ReactElement {
@@ -26,7 +25,10 @@ function Helmet({ title, description }: HelmetProps): React.ReactElement {
                 property="og:description"
                 content={description ? description : baseDescription}
             />
-            <meta property="og:image" content={MetaImage} />
+            <meta
+                property="og:image"
+                content="https://alstn2468.github.io/React_Shopping_Cart_Frontend/images/meta-image.jpg"
+            />
 
             <meta
                 name="twitter:title"
@@ -36,7 +38,10 @@ function Helmet({ title, description }: HelmetProps): React.ReactElement {
                 name="twitter:description"
                 content={description ? description : baseDescription}
             />
-            <meta name="twitter:image" content={MetaImage} />
+            <meta
+                name="twitter:image"
+                content="https://alstn2468.github.io/React_Shopping_Cart_Frontend/images/meta-image.jpg"
+            />
         </BaseHelmet>
     );
 }
