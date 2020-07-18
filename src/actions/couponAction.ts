@@ -1,8 +1,8 @@
 import { deprecated, createAsyncAction, ActionType } from 'typesafe-actions';
 import { ICouponItem } from 'models/ICouponItem';
 
-export const ADD_COUPON_AT_PRODUCT = 'APPLY_COUPON_AT_PRODUCT';
-export const REMOVE_COUPON_FROM_PRODUCT = 'REMOVE_COUPON_FROM_PRODUCT';
+export const ADD_COUPON_TO_LIST = 'ADD_COUPON_TO_LIST';
+export const REMOVE_COUPON_FROM_LIST = 'REMOVE_COUPON_FROM_LIST';
 
 export const FETCH_COUPON_LIST_REQUEST = 'FETCH_COUPON_LIST_REQUEST';
 export const FETCH_COUPON_LIST_SUCCESS = 'FETCH_COUPON_LIST_SUCCESS';
@@ -13,30 +13,25 @@ export const CLOSE_COUPON_MODAL_DIALOG = 'CLOSE_COUPON_MODAL_DIALOG';
 
 const { createStandardAction } = deprecated;
 
-type ProductCoupon = {
-    productId: string;
-    coupon: ICouponItem;
-};
-
 type AsyncActionPayload = {
     coupons: ICouponItem[];
 };
 
-/* ====================================== *
- * 상품에 쿠폰을 적용하는 액션            *
- * TPayload : { 상품 객체 ID, 쿠폰 객체 } *
- * ====================================== */
-export const addCouponAtProduct = createStandardAction(ADD_COUPON_AT_PRODUCT)<
-    ProductCoupon
+/* =========================== *
+ * 목록에 쿠폰을 추가하는 액션 *
+ * TPayload : { 쿠폰 객체 }    *
+ * =========================== */
+export const addCouponToList = createStandardAction(ADD_COUPON_TO_LIST)<
+    ICouponItem
 >();
 
-/* ====================================== *
- * 상품에 적용된 쿠폰을 제거하는 액션     *
- * TPayload : { 상품 객체 ID, 쿠폰 객체 } *
- * ====================================== */
-export const removeCouponFromProduct = createStandardAction(
-    REMOVE_COUPON_FROM_PRODUCT,
-)<ProductCoupon>();
+/* ============================= *
+ * 목록에서 쿠폰을 삭제하는 액션 *
+ * TPayload : { 쿠폰 객체 }      *
+ * ============================= */
+export const removeCouponFromList = createStandardAction(
+    REMOVE_COUPON_FROM_LIST,
+)<ICouponItem>();
 
 /* ================================== *
  * 쿠폰 목록을 가져오는 비동기 액션   *
@@ -67,8 +62,8 @@ export const closeCouponModalDialog = createStandardAction(
 )();
 
 const actions = {
-    addCouponAtProduct,
-    removeCouponFromProduct,
+    addCouponToList,
+    removeCouponFromList,
     fetchCouponList,
     openCouponModalDialog,
     closeCouponModalDialog,
