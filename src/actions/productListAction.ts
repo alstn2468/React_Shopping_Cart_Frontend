@@ -14,7 +14,7 @@ type AsyncActionPayload = {
 
 /* ================================== *
  * 상품 목록을 가져오는 비동기 액션   *
- * TRequestPayload : 페이지 번호      *
+ * TRequestPayload : void             *
  * TSuccessPayload : 상품 목록 리스트 *
  * TFailurePayload : 실패 메시지      *
  * ================================== */

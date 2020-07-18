@@ -1,7 +1,11 @@
 import { ThunkAction } from 'redux-thunk';
-import productItems from 'data/productItem';
+import productItems from 'data/productItems';
+import coupons from 'data/coupons';
 import { ProductListAction, fetchProductList } from 'actions/productListAction';
+import { CouponAction, fetchCouponList } from 'actions/couponAction';
+import { CouponState } from 'reducers/couponReducer';
 import { ProductListState } from 'reducers/productListReducer';
+import { ICouponItem } from 'models/ICouponItem';
 
 export function getProductList(
     page: number,
@@ -23,6 +27,29 @@ export function getProductList(
             productList = productList.slice((page - 1) * 5, (page - 1) * 5 + 5);
 
             dispatch(success({ productItems: productList, itemCounts }));
+        } catch (e) {
+            dispatch(failure(e));
+        }
+    };
+}
+
+export function getCouponList(): ThunkAction<
+    Promise<void>,
+    CouponState,
+    null,
+    CouponAction
+> {
+    return async (dispatch) => {
+        const { request, success, failure } = fetchCouponList;
+
+        dispatch(request());
+
+        try {
+            const couponList: ICouponItem[] = [...coupons];
+
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+
+            dispatch(success({ coupons: couponList }));
         } catch (e) {
             dispatch(failure(e));
         }
