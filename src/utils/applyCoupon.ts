@@ -8,7 +8,7 @@ export function applyCoupon(
     const { type, discountRate, discountAmount } = coupon;
 
     if (type === 'rate') {
-        return Math.floor((price * amount) / discountRate);
+        return Math.floor(price * amount * (discountRate / 100));
     }
 
     return discountAmount * amount;
