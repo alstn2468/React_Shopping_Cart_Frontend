@@ -5,6 +5,7 @@ import { MdClear } from 'react-icons/md';
 import {
     ProductTopInfoProp,
     ProductTopInfoTextProp,
+    ApplyCouponButtonProp,
 } from 'components/Cart/CartItemProps';
 import { ICartItem } from 'models/ICartItem';
 import {
@@ -150,9 +151,12 @@ const ProductAmountText = styled.div`
     text-align: center;
 `;
 
-const ConfirmationContainer = styled.div``;
+const ConfirmationContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+`;
 
-const ApplyCouponButton = styled.button`
+const ApplyCouponButton = styled.button<ApplyCouponButtonProp>`
     height: 40px;
     width: 120px;
     font-size: 12px;
@@ -161,10 +165,20 @@ const ApplyCouponButton = styled.button`
     color: #ffffff;
     background-color: #000000;
     border: none;
+    cursor: ${(prop) => prop.availableCoupon && 'pointer'};
+    visibility: ${(prop) => !prop.availableCoupon && 'hidden'};
 
     &:focus {
         outline: none;
     }
+`;
+
+const TotalPriceText = styled.div`
+    height: 40px;
+    width: calc(100% - 120px);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
 `;
 
 function CartItem({
@@ -238,10 +252,13 @@ function CartItem({
             </CartItemDetail>
             <Divisor />
             <ConfirmationContainer>
-                <ApplyCouponButton>
-                    {availableCoupon ? '쿠폰 적용하기' : '쿠폰을 적용 불가'}
+                <ApplyCouponButton
+                    disabled={!availableCoupon}
+                    availableCoupon={availableCoupon}
+                >
+                    {availableCoupon ? '쿠폰 적용하기' : '쿠폰 적용 불가'}
                 </ApplyCouponButton>
-                총 {price * amount} 원
+                <TotalPriceText>총 {price * amount} 원</TotalPriceText>
             </ConfirmationContainer>
         </CartItemContainer>
     );

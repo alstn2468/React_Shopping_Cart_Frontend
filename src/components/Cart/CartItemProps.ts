@@ -5,3 +5,7 @@ export type ProductTopInfoProp = {
 export type ProductTopInfoTextProp = {
     color: string;
 };
+
+export type ApplyCouponButtonProp = {
+    availableCoupon: boolean;
+};

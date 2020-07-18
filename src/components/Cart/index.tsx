@@ -50,7 +50,7 @@ const PurchaseContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    padding: 30px 20px;
+    padding: 30px 40px;
 `;
 
 const PurchaseTextContainer = styled.div`
