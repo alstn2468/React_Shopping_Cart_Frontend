@@ -7,13 +7,30 @@ import {
     selectAllProductAtCart,
     removeAllProductFromCart,
 } from 'actions/cartAction';
+import CartItem from 'components/Cart/CartItem';
+import { ICartItem } from 'src/models/ICartItem';
+
+const CartListContainer = styled.div`
+    display: flex;
+    width: 90%;
+    height: 80%;
+    margin: 0 auto;
+    align-items: center;
+    padding: 20px 0;
+`;
 
 function Cart() {
     const { cartItemCounts, cartItems, selectedItems, price } = useSelector(
         (state: RootState) => state.cart,
     );
 
-    return <div>CART</div>;
+    return (
+        <CartListContainer>
+            {cartItems.map((cartItem: ICartItem) => (
+                <CartItem key={cartItem.id} {...cartItem} />
+            ))}
+        </CartListContainer>
+    );
 }
 
 export default Cart;
