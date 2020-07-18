@@ -86,11 +86,12 @@ function Pagination({
                 >
                     {'<'}
                 </PaginationButton>
-                {pattern.map((label) => (
+                {pattern.map((label: number | string) => (
                     <PaginationButton
                         key={label}
                         disabled={label === '...'}
                         onClick={() =>
+                            typeof label === 'number' &&
                             dispatch(changeProductListCurrentPage(label))
                         }
                         isActive={currentPage === label}
