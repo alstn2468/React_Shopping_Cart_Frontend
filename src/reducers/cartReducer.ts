@@ -52,7 +52,7 @@ const cartReducer = createReducer<CartState, CartAction>(initialState, {
             discountPrice:
                 state.discountPrice -
                 (product.coupon
-                    ? applyCoupon(product.price, product.amount, product.coupon)
+                    ? applyCoupon(product.price, product.coupon)
                     : 0),
         };
     },
@@ -77,8 +77,8 @@ const cartReducer = createReducer<CartState, CartAction>(initialState, {
             price: state.price + (product.isSelected ? product.price : 0),
             discountPrice:
                 state.discountPrice +
-                (product.coupon && product.isSelected
-                    ? applyCoupon(product.price, 1, product.coupon)
+                (product.coupon && !product.isSelected
+                    ? applyCoupon(product.price, product.coupon)
                     : 0),
         };
     },
@@ -103,8 +103,8 @@ const cartReducer = createReducer<CartState, CartAction>(initialState, {
             price: state.price - (product.isSelected ? product.price : 0),
             discountPrice:
                 state.discountPrice -
-                (product.coupon && product.isSelected
-                    ? applyCoupon(product.price, 1, product.coupon)
+                (product.coupon && !product.isSelected
+                    ? applyCoupon(product.price, product.coupon)
                     : 0),
         };
     },
@@ -119,7 +119,7 @@ const cartReducer = createReducer<CartState, CartAction>(initialState, {
             return { ...cartItem };
         });
         const newDiscountPrice = product.coupon
-            ? applyCoupon(product.price, product.amount, product.coupon)
+            ? applyCoupon(product.price, product.coupon)
             : 0;
 
         return {
@@ -159,11 +159,7 @@ const cartReducer = createReducer<CartState, CartAction>(initialState, {
                 (!product.isSelected ? product.price * product.amount : 0),
             discountPrice:
                 state.discountPrice +
-                applyCoupon(
-                    product.price,
-                    product.amount,
-                    action.payload.coupon,
-                ),
+                applyCoupon(product.price, action.payload.coupon),
         };
     },
     [REMOVE_COUPON_FROM_PRODUCT]: (state, action) => {
@@ -184,11 +180,7 @@ const cartReducer = createReducer<CartState, CartAction>(initialState, {
             }),
             discountPrice:
                 state.discountPrice -
-                applyCoupon(
-                    product.price,
-                    product.amount,
-                    action.payload.coupon,
-                ),
+                applyCoupon(product.price, action.payload.coupon),
         };
     },
 });
