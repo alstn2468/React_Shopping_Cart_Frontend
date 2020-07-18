@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = (env) => ({
     entry: './src/index.tsx',
@@ -10,7 +11,7 @@ module.exports = (env) => ({
     },
     output: {
         path: path.join(__dirname, '/dist'),
-        filename: 'bundle.min.js',
+        filename: '[name].[chunkhash].js',
     },
     module: {
         rules: [
@@ -28,7 +29,19 @@ module.exports = (env) => ({
             },
         ],
     },
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                commons: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: 'vendors',
+                    chunks: 'all',
+                },
+            },
+        },
+    },
     plugins: [
+        new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             template: './src/index.html',
         }),
