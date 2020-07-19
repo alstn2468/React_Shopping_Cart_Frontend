@@ -1,12 +1,13 @@
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { RootState } from 'reducers';
 import CouponItem from 'components/CouponDialog/CouponItem';
 import { closeCouponModalDialog } from 'actions/couponAction';
 import { getCouponList } from 'actions/thunkAction';
 import { ICouponItem } from 'models/ICouponItem';
+import CouponDialogCloseButton from 'components/CouponDialog/CouponDialogCloseButton';
+import CouponDialogLoader from 'components/CouponDialog/CouponDialogLoader';
 
 const OverlayDialogContainer = styled.div`
     background-color: rgba(0, 0, 0, 0.6);
@@ -40,64 +41,11 @@ const CouponDialogHeader = styled.div`
     align-items: center;
 `;
 
-const CouponDialogCloseIcon = styled(AiOutlineCloseCircle)`
-    fill: #ffffff;
-    width: 18px;
-    height: auto;
-`;
-
-const CouponDialogCloseButton = styled.button`
-    width: 18px;
-    height: 18px;
-    padding: 0;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-
-    &:focus {
-        outline: none;
-    }
-`;
-
 const CouponDialogContent = styled.div`
     width: 100%;
     height: 270px;
     padding: 10px 0;
     overflow: auto;
-`;
-
-const LoaderContainer = styled.div`
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-`;
-
-const Loader = styled.div`
-    height: 50px;
-    width: 50px;
-    margin: 0 auto;
-    border: 6px solid #000;
-    border-top: 6px solid #fff;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-
-    @keyframes spin {
-        0% {
-            transform: rotate(0deg);
-        }
-        100% {
-            transform: rotate(360deg);
-        }
-    }
-`;
-
-const LoadingText = styled.div`
-    margin: 0 auto;
-    font-size: 22px;
-    color: #000000;
-    text-align: center;
-    margin: 15px;
 `;
 
 function CouponDialog(): React.ReactElement {
@@ -119,17 +67,14 @@ function CouponDialog(): React.ReactElement {
                 <CouponDialogContainer>
                     <CouponDialogHeader>
                         <CouponDialogCloseButton
-                            onClick={() => dispatch(closeCouponModalDialog())}
-                        >
-                            <CouponDialogCloseIcon />
-                        </CouponDialogCloseButton>
+                            onButtonClicked={() =>
+                                dispatch(closeCouponModalDialog())
+                            }
+                        />
                     </CouponDialogHeader>
                     <CouponDialogContent>
                         {loading ? (
-                            <LoaderContainer>
-                                <Loader />
-                                <LoadingText>Loading...</LoadingText>
-                            </LoaderContainer>
+                            <CouponDialogLoader />
                         ) : (
                             coupons.map((coupon: ICouponItem, idx: number) => (
                                 <CouponItem key={`coupon-${idx}`} {...coupon} />
