@@ -131,8 +131,8 @@ function CouponDialog(): React.ReactElement {
                                 <LoadingText>Loading...</LoadingText>
                             </LoaderContainer>
                         ) : (
-                            coupons.map((coupon: ICouponItem) => (
-                                <CouponItem {...coupon} />
+                            coupons.map((coupon: ICouponItem, idx: number) => (
+                                <CouponItem key={`coupon-${idx}`} {...coupon} />
                             ))
                         )}
                     </CouponDialogContent>
