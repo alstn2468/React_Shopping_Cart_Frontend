@@ -14,6 +14,7 @@ import {
 } from 'components/Product/ProductProps';
 import { addProductToCart, removeProductFromCart } from 'actions/cartAction';
 import { numberWithComma } from 'utils/numberWithComma';
+import Divisor from 'components/Common/Divisor';
 
 const ProductImageContainer = styled.div`
     width: 100%;
@@ -112,13 +113,6 @@ const CouponIcon = styled(RiCoupon2Line)`
     height: 14px;
     margin-left: 6px;
     margin-right: 2px;
-`;
-
-const Divisor = styled.hr`
-    margin-top: 10px;
-    margin-bottom: 10px;
-    width: 100%;
-    border: 1px solid rgb(242, 244, 245);
 `;
 
 const ProductButton = styled.button<ProductButtonProps>`

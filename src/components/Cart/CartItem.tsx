@@ -1,23 +1,24 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
-import { MdClear } from 'react-icons/md';
 import {
     ProductTopInfoProp,
     ProductTopInfoTextProp,
-    ApplyCouponButtonProp,
-    CheckBoxProp,
 } from 'components/Cart/CartItemProps';
 import { ICartItem } from 'models/ICartItem';
 import {
     removeProductFromCart,
-    increaseCartProductAmount,
-    decreaseCartProductAmount,
     selectProductAtCart,
     removeCouponFromProduct,
 } from 'actions/cartAction';
 import { openCouponModalDialog, addCouponToList } from 'actions/couponAction';
 import { numberWithComma } from 'utils/numberWithComma';
+import ProductAmount from 'components/Cart/ProductAmount';
+import CartCheckBox from 'components/Cart//CartCheckBox';
+import ApplyCouponButton from 'components/Cart/ApplyCouponButton';
+import RemoveCouponButton from 'components/Cart/RemoveCouponButton';
+import ProductRemoveButton from 'components/Cart/ProductRemoveButton';
+import Divisor from 'components/Common/Divisor';
 
 const CartItemContainer = styled.div`
     position: relative;
@@ -63,29 +64,6 @@ const ProductTopInfoText = styled.div<ProductTopInfoTextProp>`
     margin: 0px;
 `;
 
-const ProductRemoveButton = styled.button`
-    position: absolute;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    background-color: transparent;
-    border: none;
-    width: 30px;
-    height: 30px;
-    top: 10px;
-    right: 15px;
-    cursor: pointer;
-
-    &:focus {
-        outline: none;
-    }
-`;
-
-const ProductRemoveIcon = styled(MdClear)`
-    width: 25px;
-    height: 25px;
-`;
-
 const CartItemImage = styled.img`
     height: 250px;
     width: 100%;
@@ -102,13 +80,6 @@ const ProductTitle = styled.h2`
     height: 20px;
 `;
 
-const Divisor = styled.hr`
-    margin-top: 10px;
-    margin-bottom: 10px;
-    width: 100%;
-    border: 1px solid rgb(242, 244, 245);
-`;
-
 const ProductPriceContainer = styled.div`
     display: flex;
     justify-content: space-between;
@@ -123,75 +94,9 @@ const ProductPriceText = styled.div`
     color: rgb(27, 28, 29);
 `;
 
-const ProductAmountContainer = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-`;
-
-const ProductAmountButton = styled.button`
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    background-color: #ffffff;
-    border: 1px solid #000000;
-    transition: all 0.5s ease;
-    border-radius: 3px;
-
-    &:active {
-        background-color: #000000;
-        color: #ffffff;
-    }
-
-    &:focus {
-        outline: none;
-    }
-`;
-
-const ProductAmountText = styled.div`
-    margin: 0 6px;
-    width: 10px;
-    text-align: center;
-`;
-
 const ConfirmationContainer = styled.div`
     display: flex;
     flex-direction: row;
-`;
-
-const ApplyCouponButton = styled.button<ApplyCouponButtonProp>`
-    height: 40px;
-    width: 120px;
-    min-width: 120px;
-    font-size: 12px;
-    font-weight: 600;
-    padding: 2px 0;
-    color: #ffffff;
-    background-color: #000000;
-    border: none;
-    cursor: ${(prop) => prop.availableCoupon && 'pointer'};
-    visibility: ${(prop) => !prop.availableCoupon && 'hidden'};
-
-    &:focus {
-        outline: none;
-    }
-`;
-
-const RemoveCouponButton = styled.button`
-    height: 40px;
-    width: 60px;
-    font-size: 12px;
-    font-weight: 600;
-    padding: 2px 0;
-    color: #000000;
-    background-color: #ffffff;
-    border: 1px solid #000000;
-
-    &:focus {
-        outline: none;
-    }
 `;
 
 const TotalPriceText = styled.div`
@@ -201,45 +106,6 @@ const TotalPriceText = styled.div`
     align-items: center;
     justify-content: flex-end;
     font-size: 16px;
-`;
-
-const HiddenCheckbox = styled.input.attrs({ type: 'checkbox' })`
-    border: 0;
-    clip: rect(0 0 0 0);
-    clippath: inset(50%);
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-    padding: 0;
-    position: absolute;
-    white-space: nowrap;
-    width: 1px;
-`;
-
-const Icon = styled.svg`
-    fill: none;
-    stroke: white;
-    stroke-width: 2px;
-`;
-
-const StyledCheckbox = styled.div<CheckBoxProp>`
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    border: 1px solid #000000;
-    background: ${(props) => (props.isSelected ? '#000000' : '#ffffff')};
-    border-radius: 3px;
-    transition: all 150ms;
-
-    ${Icon} {
-        visibility: ${(props) => (props.isSelected ? 'visible' : 'hidden')};
-    }
-`;
-
-const CheckboxContainer = styled.div`
-    display: inline-block;
-    vertical-align: middle;
-    margin-right: 8px;
 `;
 
 function CartItem({
@@ -253,7 +119,7 @@ function CartItem({
     isSelected = false,
     coupon,
 }: ICartItem) {
-    const item = {
+    const item: ICartItem = {
         id,
         title,
         coverImage,
@@ -269,22 +135,13 @@ function CartItem({
     return (
         <CartItemContainer>
             <ProductRemoveButton
-                onClick={() => dispatch(removeProductFromCart(item))}
-            >
-                <ProductRemoveIcon />
-            </ProductRemoveButton>
+                onButtonClicked={() => dispatch(removeProductFromCart(item))}
+            />
             <CartItemTopContainer>
-                <CheckboxContainer>
-                    <HiddenCheckbox />
-                    <StyledCheckbox
-                        isSelected={isSelected}
-                        onClick={() => dispatch(selectProductAtCart(id))}
-                    >
-                        <Icon viewBox="0 0 24 24">
-                            <polyline points="20 6 9 17 4 12" />
-                        </Icon>
-                    </StyledCheckbox>
-                </CheckboxContainer>
+                <CartCheckBox
+                    isSelected={isSelected}
+                    onCheckBoxClicked={() => dispatch(selectProductAtCart(id))}
+                />
                 <ProductTopInfo backgroundColor="#000000">
                     <ProductTopInfoText color="#ffffff">
                         {score}명의 선택
@@ -305,43 +162,20 @@ function CartItem({
                     <ProductPriceText>
                         {numberWithComma(price)}원
                     </ProductPriceText>
-                    <ProductAmountContainer>
-                        <ProductAmountButton
-                            disabled={amount <= 1}
-                            onClick={() =>
-                                dispatch(decreaseCartProductAmount(id))
-                            }
-                        >
-                            -
-                        </ProductAmountButton>
-
-                        <ProductAmountText>{amount}</ProductAmountText>
-                        <ProductAmountButton
-                            onClick={() =>
-                                dispatch(increaseCartProductAmount(id))
-                            }
-                        >
-                            +
-                        </ProductAmountButton>
-                    </ProductAmountContainer>
+                    <ProductAmount amount={amount} productId={id} />
                 </ProductPriceContainer>
             </CartItemDetail>
             <Divisor />
             <ConfirmationContainer>
                 <ApplyCouponButton
-                    disabled={!availableCoupon}
                     availableCoupon={availableCoupon}
-                    onClick={() => dispatch(openCouponModalDialog(id))}
-                >
-                    {availableCoupon
-                        ? Boolean(coupon)
-                            ? `${coupon.title}`
-                            : '쿠폰 적용하기'
-                        : '쿠폰 적용 불가'}
-                </ApplyCouponButton>
+                    onButtonClicked={() => dispatch(openCouponModalDialog(id))}
+                    hasCoupon={Boolean(coupon)}
+                    couponTitle={Boolean(coupon) && coupon.title}
+                />
                 {availableCoupon && Boolean(coupon) && (
                     <RemoveCouponButton
-                        onClick={() => {
+                        onButtonClicked={() => {
                             dispatch(
                                 removeCouponFromProduct({
                                     productId: id,
@@ -350,9 +184,7 @@ function CartItem({
                             );
                             dispatch(addCouponToList(coupon));
                         }}
-                    >
-                        취소
-                    </RemoveCouponButton>
+                    />
                 )}
                 <TotalPriceText>
                     총 {numberWithComma(price * amount)} 원

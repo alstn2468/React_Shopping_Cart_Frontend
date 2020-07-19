@@ -1,6 +1,6 @@
 import { ICouponItem } from 'models/ICouponItem';
 
-export function applyCoupon(price: number, coupon: ICouponItem) {
+export function applyCoupon(price: number, coupon: ICouponItem): number {
     const { type, discountRate, discountAmount } = coupon;
 
     if (type === 'rate') {
