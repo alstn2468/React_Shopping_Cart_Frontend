@@ -27,6 +27,14 @@ module.exports = (env) => ({
                     outputPath: 'images/',
                 },
             },
+            {
+                test: /\.(mp4)$/,
+                loader: 'file-loader',
+                options: {
+                    name: '[name].[ext]',
+                    outputPath: 'videos/',
+                },
+            },
         ],
     },
     optimization: {

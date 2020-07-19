@@ -10,7 +10,6 @@ import {
 } from 'actions/couponAction';
 import { createReducer } from 'typesafe-actions';
 import { ICouponItem } from 'models/ICouponItem';
-import { IProductItem } from 'models/IProductItem';
 
 export type CouponState = {
     loading: boolean;
