@@ -2,6 +2,10 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { MdClear } from 'react-icons/md';
 
+type RemoveProductButton = {
+    onButtonClicked: () => void;
+};
+
 const Button = styled.button`
     position: absolute;
     display: inline-flex;
@@ -25,7 +29,9 @@ const ProductRemoveIcon = styled(MdClear)`
     height: 25px;
 `;
 
-function ProductRemoveButton({ onButtonClicked }): React.ReactElement {
+function ProductRemoveButton({
+    onButtonClicked,
+}: RemoveProductButton): React.ReactElement {
     return (
         <Button onClick={onButtonClicked}>
             <ProductRemoveIcon />

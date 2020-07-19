@@ -1,10 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
-import {
-    ProductTopInfoProp,
-    ProductTopInfoTextProp,
-} from 'components/Cart/CartItemProps';
 import { ICartItem } from 'models/ICartItem';
 import {
     removeProductFromCart,
@@ -18,6 +14,7 @@ import CartCheckBox from 'components/Cart//CartCheckBox';
 import ApplyCouponButton from 'components/Cart/ApplyCouponButton';
 import RemoveCouponButton from 'components/Cart/RemoveCouponButton';
 import ProductRemoveButton from 'components/Cart/ProductRemoveButton';
+import ProductBadge from 'components/Cart/ProductBadge';
 import Divisor from 'components/Common/Divisor';
 
 const CartItemContainer = styled.div`
@@ -38,30 +35,6 @@ const CartItemContainer = styled.div`
 const CartItemTopContainer = styled.div`
     line-height: 0px;
     height: 20px;
-`;
-
-const ProductTopInfo = styled.div<ProductTopInfoProp>`
-    min-width: 20px;
-    height: 20px;
-    padding-left: 6px;
-    padding-right: 6px;
-    background-color: ${(prop) => prop.backgroundColor};
-    display: inline-flex;
-    align-items: center;
-    border-radius: 3px;
-    flex: 0 0 auto;
-    margin-right: 4px;
-`;
-
-const ProductTopInfoText = styled.div<ProductTopInfoTextProp>`
-    font-size: 9px;
-    line-height: 12px;
-    letter-spacing: normal;
-    color: ${(prop) => prop.color};
-    font-weight: 600;
-    display: inline-flex;
-    align-items: center;
-    margin: 0px;
 `;
 
 const CartItemImage = styled.img`
@@ -142,17 +115,17 @@ function CartItem({
                     isSelected={isSelected}
                     onCheckBoxClicked={() => dispatch(selectProductAtCart(id))}
                 />
-                <ProductTopInfo backgroundColor="#000000">
-                    <ProductTopInfoText color="#ffffff">
-                        {score}명의 선택
-                    </ProductTopInfoText>
-                </ProductTopInfo>
+                <ProductBadge
+                    backgroundColor="#000000"
+                    color="#ffffff"
+                    children={`${score}명의 선택`}
+                />
                 {availableCoupon && (
-                    <ProductTopInfo backgroundColor="red">
-                        <ProductTopInfoText color="#ffffff">
-                            쿠폰 적용 가능
-                        </ProductTopInfoText>
-                    </ProductTopInfo>
+                    <ProductBadge
+                        backgroundColor="red"
+                        color="#ffffff"
+                        children="쿠폰 적용 가능"
+                    />
                 )}
             </CartItemTopContainer>
             <CartItemImage src={coverImage} />
