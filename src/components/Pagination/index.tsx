@@ -2,10 +2,17 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { changeProductListCurrentPage } from 'actions/productListAction';
-import {
-    PaginationProps,
-    PaginationButtonProps,
-} from 'components/Pagination/PaginationProps';
+
+type PaginationProps = {
+    currentPage: number;
+    range: number;
+};
+
+type PaginationButtonProps = {
+    isActive: boolean;
+    isFirst: boolean;
+    isLast: boolean;
+};
 
 const PaginationContainer = styled.div`
     width: 100%;

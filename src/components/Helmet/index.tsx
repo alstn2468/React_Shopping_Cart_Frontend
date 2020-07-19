@@ -1,7 +1,11 @@
 import * as React from 'react';
 import { Helmet as BaseHelmet } from 'react-helmet';
 import Favicon from 'assets/images/favicon.ico';
-import { HelmetProps } from 'components/Helmet/HelmetProps';
+
+type HelmetProps = {
+    title?: string;
+    description?: string;
+};
 
 function Helmet({ title, description }: HelmetProps): React.ReactElement {
     const baseTitle = '준비물까지 챙겨주는 온라인 클래스';

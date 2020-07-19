@@ -4,7 +4,10 @@ import { useSelector } from 'react-redux';
 import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
 import { RootState } from 'reducers';
 import logoImage from 'assets/images/logo.png';
-import { ItemProps } from 'components/Header/HeaderType';
+
+type ItemProps = {
+    current: boolean;
+};
 
 const HeaderContainer = styled.header`
     display: flex;

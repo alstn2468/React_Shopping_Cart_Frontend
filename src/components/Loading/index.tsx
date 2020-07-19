@@ -1,6 +1,9 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import { LoadingProps } from 'components/Loading/LoadingProps';
+
+type LoadingProps = {
+    isLoading: boolean;
+};
 
 const LoadingContainer = styled.div<LoadingProps>`
     background-color: rgba(0, 0, 0, 0.6);
