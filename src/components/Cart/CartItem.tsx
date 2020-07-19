@@ -14,8 +14,9 @@ import {
     increaseCartProductAmount,
     decreaseCartProductAmount,
     selectProductAtCart,
+    removeCouponFromProduct,
 } from 'actions/cartAction';
-import { openCouponModalDialog } from 'actions/couponAction';
+import { openCouponModalDialog, addCouponToList } from 'actions/couponAction';
 import { numberWithComma } from 'utils/numberWithComma';
 
 const CartItemContainer = styled.div`
@@ -163,6 +164,7 @@ const ConfirmationContainer = styled.div`
 const ApplyCouponButton = styled.button<ApplyCouponButtonProp>`
     height: 40px;
     width: 120px;
+    min-width: 120px;
     font-size: 12px;
     font-weight: 600;
     padding: 2px 0;
@@ -171,6 +173,21 @@ const ApplyCouponButton = styled.button<ApplyCouponButtonProp>`
     border: none;
     cursor: ${(prop) => prop.availableCoupon && 'pointer'};
     visibility: ${(prop) => !prop.availableCoupon && 'hidden'};
+
+    &:focus {
+        outline: none;
+    }
+`;
+
+const RemoveCouponButton = styled.button`
+    height: 40px;
+    width: 60px;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 2px 0;
+    color: #000000;
+    background-color: #ffffff;
+    border: 1px solid #000000;
 
     &:focus {
         outline: none;
@@ -312,16 +329,31 @@ function CartItem({
             <Divisor />
             <ConfirmationContainer>
                 <ApplyCouponButton
-                    disabled={!availableCoupon || Boolean(coupon)}
+                    disabled={!availableCoupon}
                     availableCoupon={availableCoupon}
                     onClick={() => dispatch(openCouponModalDialog(id))}
                 >
                     {availableCoupon
                         ? Boolean(coupon)
-                            ? coupon.title
+                            ? `${coupon.title}`
                             : '쿠폰 적용하기'
                         : '쿠폰 적용 불가'}
                 </ApplyCouponButton>
+                {availableCoupon && Boolean(coupon) && (
+                    <RemoveCouponButton
+                        onClick={() => {
+                            dispatch(
+                                removeCouponFromProduct({
+                                    productId: id,
+                                    coupon,
+                                }),
+                            );
+                            dispatch(addCouponToList(coupon));
+                        }}
+                    >
+                        취소
+                    </RemoveCouponButton>
+                )}
                 <TotalPriceText>
                     총 {numberWithComma(price * amount)} 원
                 </TotalPriceText>
