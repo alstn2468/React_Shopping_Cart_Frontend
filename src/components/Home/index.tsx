@@ -80,9 +80,7 @@ const ProductButton = styled(Link)`
 function Home() {
     return (
         <HomeContainer>
-            <HomeVideo autoPlay muted loop>
-                <source src={MainVideo} type="video/mp4"></source>
-            </HomeVideo>
+            <HomeVideo autoPlay muted loop src={MainVideo}></HomeVideo>
             <LogoContainer>
                 <HomeTextContainer>
                     <LogoImage src={MainLogo} />
