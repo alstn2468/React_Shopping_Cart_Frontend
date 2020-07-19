@@ -1,16 +1,18 @@
 import * as React from 'react';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
+import { ICouponItem } from 'models/ICouponItem';
+import { numberWithComma } from 'utils/numberWithComma';
+import { removeCouponFromProduct } from 'actions/cartAction';
+import { openCouponModalDialog, addCouponToList } from 'actions/couponAction';
 import ApplyCouponButton from 'components/Cart/ApplyCouponButton';
 import RemoveCouponButton from 'components/Cart/RemoveCouponButton';
-import { numberWithComma } from 'utils/numberWithComma';
-import { ICouponItem } from 'models/ICouponItem';
 
 type ProductConfirmProp = {
+    productId: string;
     availableCoupon: boolean;
     coupon?: ICouponItem;
     totalPrice: number;
-    onApplyCouponButtonClicked: () => void;
-    onRemoveCouponButtonClicked: () => void;
 };
 
 const ConfirmationContainer = styled.div`
@@ -28,23 +30,34 @@ const TotalPriceText = styled.div`
 `;
 
 function ProductConfirm({
+    productId,
     coupon,
     totalPrice,
     availableCoupon,
-    onApplyCouponButtonClicked,
-    onRemoveCouponButtonClicked,
 }: ProductConfirmProp): React.ReactElement {
+    const dispatch = useDispatch();
+
     return (
         <ConfirmationContainer>
             <ApplyCouponButton
                 availableCoupon={availableCoupon}
-                onButtonClicked={onApplyCouponButtonClicked}
+                onButtonClicked={() =>
+                    dispatch(openCouponModalDialog(productId))
+                }
                 hasCoupon={Boolean(coupon)}
                 couponTitle={Boolean(coupon) && coupon.title}
             />
             {availableCoupon && Boolean(coupon) && (
                 <RemoveCouponButton
-                    onButtonClicked={onRemoveCouponButtonClicked}
+                    onButtonClicked={() => {
+                        dispatch(
+                            removeCouponFromProduct({
+                                productId,
+                                coupon,
+                            }),
+                        );
+                        dispatch(addCouponToList(coupon));
+                    }}
                 />
             )}
             <TotalPriceText>총 {numberWithComma(totalPrice)} 원</TotalPriceText>

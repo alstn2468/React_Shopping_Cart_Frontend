@@ -53,8 +53,6 @@ function CartCheckBox({
     isSelected,
     onCheckBoxClicked,
 }: CartCheckBoxProp): React.ReactElement {
-    React.useEffect(() => {}, [isSelected]);
-
     return (
         <CheckboxContainer>
             <HiddenCheckbox />

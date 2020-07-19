@@ -2,12 +2,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { ICartItem } from 'models/ICartItem';
-import {
-    removeProductFromCart,
-    selectProductAtCart,
-    removeCouponFromProduct,
-} from 'actions/cartAction';
-import { openCouponModalDialog, addCouponToList } from 'actions/couponAction';
+import { removeProductFromCart, selectProductAtCart } from 'actions/cartAction';
 import CartCheckBox from 'components/Cart/CartCheckBox';
 import CartItemDetail from 'components/Cart/CartItemDetail';
 import ProductRemoveButton from 'components/Cart/ProductRemoveButton';
@@ -98,20 +93,9 @@ function CartItem({
             />
             <Divisor />
             <ProductConfirm
+                productId={id}
                 availableCoupon={availableCoupon}
-                onApplyCouponButtonClicked={() =>
-                    dispatch(openCouponModalDialog(id))
-                }
                 coupon={coupon}
-                onRemoveCouponButtonClicked={() => {
-                    dispatch(
-                        removeCouponFromProduct({
-                            productId: id,
-                            coupon,
-                        }),
-                    );
-                    dispatch(addCouponToList(coupon));
-                }}
                 totalPrice={price * amount}
             />
         </CartItemContainer>

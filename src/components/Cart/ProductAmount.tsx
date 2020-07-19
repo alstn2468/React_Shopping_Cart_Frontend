@@ -28,8 +28,6 @@ const ProductAmountText = styled.div`
 function ProductAmount({ amount, productId }: ProductAmountProp) {
     const dispatch = useDispatch();
 
-    React.useEffect(() => {}, [amount]);
-
     return (
         <ProductAmountContainer>
             <ProductAmountButton

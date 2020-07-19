@@ -36,8 +36,6 @@ function ApplyCouponButton({
     hasCoupon,
     couponTitle,
 }: ApplyCouponButtonProp): React.ReactElement {
-    React.useEffect(() => {}, [hasCoupon, couponTitle]);
-
     return (
         <Button
             disabled={!availableCoupon}
