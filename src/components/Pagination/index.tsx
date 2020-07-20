@@ -5,6 +5,13 @@ import { RootState } from 'reducers';
 import { changeProductListCurrentPage } from 'actions/productListAction';
 import PaginationButton from 'components/Pagination/PaginationButton';
 import { generatePaginationPatter } from 'utils/generatePaginationPattern';
+import { createSelector } from 'reselect';
+import { ProductListState } from 'reducers/productListReducer';
+
+type PaginationProp = {
+    currentPage: number;
+    itemCounts: number;
+};
 
 const PaginationContainer = styled.div`
     width: 100%;
@@ -18,7 +25,13 @@ const PaginationContainer = styled.div`
 function Pagination(): React.ReactElement {
     const dispatch = useDispatch();
     const { currentPage, itemCounts } = useSelector(
-        (state: RootState) => state.product,
+        createSelector(
+            (state: RootState): ProductListState => state.product,
+            (product: ProductListState): PaginationProp => ({
+                currentPage: product.currentPage,
+                itemCounts: product.itemCounts,
+            }),
+        ),
     );
     const range = Math.ceil(itemCounts / 5);
     const pattern = generatePaginationPatter(range, currentPage);

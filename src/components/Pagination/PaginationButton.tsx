@@ -57,4 +57,13 @@ function PaginationButton({
     );
 }
 
-export default PaginationButton;
+export default React.memo(
+    PaginationButton,
+    (
+        prevProps: PaginationButtonProp,
+        nextProps: PaginationButtonProp,
+    ): boolean =>
+        prevProps.currentPage === nextProps.currentPage &&
+        prevProps.range === nextProps.range &&
+        prevProps.children === nextProps.children,
+);
