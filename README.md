@@ -20,7 +20,10 @@
 -   [x] Sort product list by product score
 -   [x] Implement redux actions, reducers
 -   [x] Redux asynchronous action processing
--   [ ] Component Splitting
+-   [x] Split components
+-   [x] Write util function test case
+-   [ ] Write redux action, reducer test case
+-   [ ] Write component test case
 
 ### 변경한 요구사항
 
@@ -44,3 +47,13 @@
 -   After
 
 `/` route에 광고 영상과 `/products` route로 이동할 수 있는 버튼 추가
+
+**모바일 감지**
+
+-   Before
+
+반응형, 적응형 웹에 대한 다른 요구사항이 없음
+
+-   After
+
+User-Agent를 이용해 모바일 환경에서는 볼 수 없도록 설정
