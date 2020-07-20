@@ -5,7 +5,9 @@
     "main": ".eslint.js",
     "scripts": {
         "start": "webpack-dev-server --open --hot --mode=development --env.NODE_ENV=development",
-        "build": "webpack --mode=production --env.NODE_ENV=production"
+        "build": "webpack --mode=production --env.NODE_ENV=production",
+        "test": "jest --config jestconfig.json",
+        "test:watch": "npm run test -- --watch"
     },
     "repository": {
         "type": "git",
@@ -43,6 +45,7 @@
         "typesafe-actions": "^5.1.0"
     },
     "devDependencies": {
+        "@types/jest": "^26.0.5",
         "@typescript-eslint/eslint-plugin": "^3.4.0",
         "@typescript-eslint/parser": "^3.4.0",
         "clean-webpack-plugin": "^3.0.0",
@@ -51,8 +54,10 @@
         "eslint-plugin-react": "^7.20.0",
         "file-loader": "^6.0.0",
         "html-webpack-plugin": "^4.3.0",
+        "jest": "^26.1.0",
         "prettier": "^2.0.5",
         "redux-devtools-extension": "^2.13.8",
+        "ts-jest": "^26.1.3",
         "ts-loader": "^7.0.5",
         "typescript": "^3.9.6",
         "webpack": "^4.43.0",
