@@ -22,17 +22,11 @@ const PaginationContainer = styled.div`
     margin-top: 20px;
 `;
 
-function Pagination(): React.ReactElement {
+function Pagination({
+    currentPage,
+    itemCounts,
+}: PaginationProp): React.ReactElement {
     const dispatch = useDispatch();
-    const { currentPage, itemCounts } = useSelector(
-        createSelector(
-            (state: RootState): ProductListState => state.product,
-            (product: ProductListState): PaginationProp => ({
-                currentPage: product.currentPage,
-                itemCounts: product.itemCounts,
-            }),
-        ),
-    );
     const range = Math.ceil(itemCounts / 5);
     const pattern = generatePaginationPattern(range, currentPage);
 
@@ -72,4 +66,9 @@ function Pagination(): React.ReactElement {
     );
 }
 
-export default Pagination;
+export default React.memo(
+    Pagination,
+    (prevProps: PaginationProp, nextProps: PaginationProp): boolean =>
+        prevProps.currentPage === nextProps.currentPage &&
+        prevProps.itemCounts === nextProps.itemCounts,
+);
