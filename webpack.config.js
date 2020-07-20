@@ -58,6 +58,11 @@ module.exports = (env) => ({
         new HtmlWebpackPlugin({
             inject: true,
             template: './src/index.html',
+            minify: {
+                removeScriptTypeAttributes: true,
+                collapseWhitespace: true,
+                removeComments: true,
+            },
         }),
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify(
