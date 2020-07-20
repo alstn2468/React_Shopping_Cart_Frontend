@@ -39,4 +39,4 @@ function ProductRemoveButton({
     );
 }
 
-export default ProductRemoveButton;
+export default React.memo(ProductRemoveButton, (): boolean => true);

@@ -65,4 +65,9 @@ function ProductConfirm({
     );
 }
 
-export default ProductConfirm;
+export default React.memo(
+    ProductConfirm,
+    (prevProps: ProductConfirmProp, nextProps: ProductConfirmProp): boolean =>
+        JSON.stringify(prevProps.coupon) === JSON.stringify(nextProps.coupon) &&
+        prevProps.totalPrice === nextProps.totalPrice,
+);

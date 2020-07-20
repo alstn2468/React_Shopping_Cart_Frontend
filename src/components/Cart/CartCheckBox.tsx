@@ -65,4 +65,7 @@ function CartCheckBox({
     );
 }
 
-export default CartCheckBox;
+export default React.memo(
+    CartCheckBox,
+    (prevProps, nextProps) => prevProps.isSelected === nextProps.isSelected,
+);

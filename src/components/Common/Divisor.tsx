@@ -12,4 +12,4 @@ function Divisor(): React.ReactElement {
     return <StyledDivisor />;
 }
 
-export default Divisor;
+export default React.memo(Divisor, (): boolean => true);

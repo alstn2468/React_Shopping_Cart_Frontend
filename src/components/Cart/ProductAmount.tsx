@@ -49,4 +49,8 @@ function ProductAmount({ amount, productId }: ProductAmountProp) {
     );
 }
 
-export default ProductAmount;
+export default React.memo(
+    ProductAmount,
+    (prevProps: ProductAmountProp, nextProps: ProductAmountProp): boolean =>
+        prevProps.amount === nextProps.amount,
+);

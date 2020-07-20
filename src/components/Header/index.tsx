@@ -1,13 +1,10 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
-import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { RootState } from 'reducers';
 import logoImage from 'assets/images/logo.png';
-
-type ItemProps = {
-    current: boolean;
-};
+import Item from 'components/Header/Item';
 
 const HeaderContainer = styled.header`
     display: flex;
@@ -24,31 +21,6 @@ const List = styled.ul`
     justify-content: flex-end;
 `;
 
-const Item = styled.li<ItemProps>`
-    width: 100px;
-    height: 60px;
-    text-align: center;
-    border-bottom: 3px solid
-        ${(props) => (props.current ? '#000000' : 'transparent')};
-    transition: border-bottom 0.5s ease-in-out;
-
-    &:focus {
-        outline: none;
-    }
-`;
-
-const SLink = styled(Link)`
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-
-    &:hover {
-        font-weight: 600;
-    }
-`;
-
 const LogoImageContainer = styled.div`
     flex: 1;
     height: 60px;
@@ -62,10 +34,11 @@ const LogoImage = styled.img`
     height: auto;
 `;
 
-function Header({
-    location: { pathname },
-}: RouteComponentProps): React.ReactElement {
-    const { cartItemCounts } = useSelector((state: RootState) => state.cart);
+function Header(): React.ReactElement {
+    const { pathname } = useLocation();
+    const cartItemCounts = useSelector(
+        (state: RootState): number => state.cart.cartItemCounts,
+    );
 
     return (
         <HeaderContainer>
@@ -73,18 +46,20 @@ function Header({
                 <LogoImage src={logoImage} />
             </LogoImageContainer>
             <List>
-                <Item current={pathname === '/'}>
-                    <SLink to="/">HOME</SLink>
-                </Item>
-                <Item current={pathname === '/products'}>
-                    <SLink to="/products">PRODUCTS</SLink>
-                </Item>
-                <Item current={pathname === '/cart'}>
-                    <SLink to="/cart">CART ({cartItemCounts})</SLink>
-                </Item>
+                <Item pathname={pathname} linkTo="/" children="HOME" />
+                <Item
+                    pathname={pathname}
+                    linkTo="/products"
+                    children="PRODUCTS"
+                />
+                <Item
+                    pathname={pathname}
+                    linkTo="/cart"
+                    children={`CART (${cartItemCounts})`}
+                />
             </List>
         </HeaderContainer>
     );
 }
 
-export default withRouter(Header);
+export default Header;

@@ -119,7 +119,7 @@ const ProductButton = styled.button<ProductButtonProps>`
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 120px;
+    width: 130px;
     height: 30px;
     background: ${(prop) => (prop.isPointer ? '#000000' : '#c2c2c2')};
     color: #ffffff;

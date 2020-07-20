@@ -7,5 +7,5 @@ export function applyCoupon(price: number, coupon: ICouponItem): number {
         return Math.floor(price * (discountRate / 100));
     }
 
-    return discountAmount;
+    return price > discountAmount ? discountAmount : price;
 }

@@ -1,6 +1,6 @@
-type PatternType = (string | number)[];
+export type PatternType = (string | number)[];
 
-export function generatePaginationPatter(
+export function generatePaginationPattern(
     range: number,
     currentPage: number,
 ): PatternType {

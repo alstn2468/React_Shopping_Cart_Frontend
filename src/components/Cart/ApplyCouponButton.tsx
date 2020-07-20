@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 type StyledButtonProp = {
     availableCoupon: boolean;
+    hasCoupon: boolean;
 };
 
 type ApplyCouponButtonProp = {
@@ -22,7 +23,7 @@ const Button = styled.button<StyledButtonProp>`
     color: #ffffff;
     background-color: #000000;
     border: none;
-    cursor: ${(prop) => prop.availableCoupon && 'pointer'};
+    cursor: ${(prop) => prop.availableCoupon && !prop.hasCoupon && 'pointer'};
     visibility: ${(prop) => !prop.availableCoupon && 'hidden'};
 
     &:focus {
@@ -38,8 +39,9 @@ function ApplyCouponButton({
 }: ApplyCouponButtonProp): React.ReactElement {
     return (
         <Button
-            disabled={!availableCoupon}
+            disabled={!availableCoupon || hasCoupon}
             availableCoupon={availableCoupon}
+            hasCoupon={hasCoupon}
             onClick={onButtonClicked}
         >
             {availableCoupon
@@ -51,4 +53,13 @@ function ApplyCouponButton({
     );
 }
 
-export default ApplyCouponButton;
+export default React.memo(
+    ApplyCouponButton,
+    (
+        prevProps: ApplyCouponButtonProp,
+        nextProps: ApplyCouponButtonProp,
+    ): boolean =>
+        prevProps.availableCoupon === nextProps.availableCoupon &&
+        prevProps.hasCoupon === nextProps.hasCoupon &&
+        prevProps.couponTitle === nextProps.couponTitle,
+);

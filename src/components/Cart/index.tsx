@@ -1,12 +1,20 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
+import { createSelector } from 'reselect';
 import { AiOutlineShopping } from 'react-icons/ai';
 import { RootState } from 'reducers';
 import CartItem from 'components/Cart/CartItem';
 import Purchase from 'components/Cart/Purchase';
 import CouponDialog from 'components/CouponDialog';
 import { ICartItem } from 'models/ICartItem';
+import { CartState } from 'reducers/cartReducer';
+
+type CartProp = {
+    cartItems: ICartItem[];
+    price: number;
+    discountPrice: number;
+};
 
 const CartListContainer = styled.div`
     display: flex;
@@ -43,7 +51,14 @@ const CartEmptyIcon = styled(AiOutlineShopping)`
 
 function Cart() {
     const { cartItems, price, discountPrice } = useSelector(
-        (state: RootState) => state.cart,
+        createSelector(
+            (state: RootState): CartState => state.cart,
+            (cart: CartState): CartProp => ({
+                cartItems: cart.cartItems,
+                price: cart.price,
+                discountPrice: cart.discountPrice,
+            }),
+        ),
     );
 
     return (

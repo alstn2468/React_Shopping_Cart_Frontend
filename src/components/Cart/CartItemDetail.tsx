@@ -50,4 +50,9 @@ function CartItemDetail({
     );
 }
 
-export default CartItemDetail;
+export default React.memo(
+    CartItemDetail,
+    (prevProps: CartItemDetailProp, nextProps: CartItemDetailProp): boolean =>
+        prevProps.price === nextProps.price &&
+        prevProps.amount === nextProps.amount,
+);

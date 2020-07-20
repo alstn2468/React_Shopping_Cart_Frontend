@@ -102,4 +102,11 @@ function CartItem({
     );
 }
 
-export default CartItem;
+export default React.memo(
+    CartItem,
+    (prevProps: ICartItem, nextProps: ICartItem): boolean =>
+        prevProps.id === nextProps.id &&
+        prevProps.amount === nextProps.amount &&
+        prevProps.isSelected === nextProps.isSelected &&
+        JSON.stringify(prevProps.coupon) === JSON.stringify(nextProps.coupon),
+);

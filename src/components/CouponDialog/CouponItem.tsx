@@ -57,8 +57,8 @@ function CouponItem({
     discountRate,
 }: ICouponItem): React.ReactElement {
     const dispatch = useDispatch();
-    const { selectedProductId } = useSelector(
-        (state: RootState) => state.coupon,
+    const selectedProductId = useSelector(
+        (state: RootState) => state.coupon.selectedProductId,
     );
     const coupon = {
         type,
@@ -91,4 +91,9 @@ function CouponItem({
     );
 }
 
-export default CouponItem;
+export default React.memo(
+    CouponItem,
+    (prevProps: ICouponItem, nextProps: ICouponItem): boolean =>
+        prevProps.title === nextProps.title &&
+        prevProps.type === nextProps.type,
+);

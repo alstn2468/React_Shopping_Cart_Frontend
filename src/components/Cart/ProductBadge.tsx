@@ -49,4 +49,8 @@ function ProductBadge({
     );
 }
 
-export default ProductBadge;
+export default React.memo(
+    ProductBadge,
+    (prevProps: IProductBadge, nextProps: IProductBadge): boolean =>
+        prevProps.children === nextProps.children,
+);

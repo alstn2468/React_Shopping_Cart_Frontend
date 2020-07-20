@@ -42,7 +42,7 @@ const cartReducer = createReducer<CartState, CartAction>(initialState, {
     },
     [REMOVE_PRODUCT_FROM_CART]: (state, action) => {
         const product = action.payload;
-        const { coupon } = state.cartItems.find(
+        const { coupon, amount, isSelected } = state.cartItems.find(
             (item) => item.id === product.id,
         );
 
@@ -52,14 +52,10 @@ const cartReducer = createReducer<CartState, CartAction>(initialState, {
                 ...state.cartItems.filter((item) => item.id !== product.id),
             ],
             cartItemCounts: state.cartItemCounts - 1,
-            price:
-                state.price -
-                (product.isSelected ? product.price * product.amount : 0),
+            price: state.price - (isSelected ? product.price * amount : 0),
             discountPrice:
                 state.discountPrice -
-                (coupon && product.isSelected
-                    ? applyCoupon(product.price, coupon)
-                    : 0),
+                (coupon && isSelected ? applyCoupon(product.price, coupon) : 0),
         };
     },
     [INCREASE_CART_PRODUCT_AMOUNT]: (state, action) => {

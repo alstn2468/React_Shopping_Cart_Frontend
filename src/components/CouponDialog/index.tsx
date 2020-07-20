@@ -1,13 +1,13 @@
 import * as React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components';
 import { RootState } from 'reducers';
-import CouponItem from 'components/CouponDialog/CouponItem';
-import { closeCouponModalDialog } from 'actions/couponAction';
-import { getCouponList } from 'actions/thunkAction';
+import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
 import { ICouponItem } from 'models/ICouponItem';
-import CouponDialogCloseButton from 'components/CouponDialog/CouponDialogCloseButton';
+import { getCouponList } from 'actions/thunkAction';
+import { closeCouponModalDialog } from 'actions/couponAction';
+import CouponItem from 'components/CouponDialog/CouponItem';
 import CouponDialogLoader from 'components/CouponDialog/CouponDialogLoader';
+import CouponDialogCloseButton from 'components/CouponDialog/CouponDialogCloseButton';
 
 const OverlayDialogContainer = styled.div`
     background-color: rgba(0, 0, 0, 0.6);
@@ -50,7 +50,7 @@ const CouponDialogContent = styled.div`
 
 function CouponDialog(): React.ReactElement {
     const dispatch = useDispatch();
-    const { cartItems } = useSelector((state: RootState) => state.cart);
+    const cartItems = useSelector((state: RootState) => state.cart.cartItems);
     const { loading, isOpen, coupons, error } = useSelector(
         (state: RootState) => state.coupon,
     );

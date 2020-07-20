@@ -39,4 +39,12 @@ function ProductAmountButton({
     );
 }
 
-export default ProductAmountButton;
+export default React.memo(
+    ProductAmountButton,
+    (
+        prevProps: ProductAmountButtonProp,
+        nextProps: ProductAmountButtonProp,
+    ): boolean =>
+        prevProps.children === nextProps.children &&
+        prevProps.disabled === nextProps.disabled,
+);

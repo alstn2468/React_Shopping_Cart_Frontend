@@ -69,4 +69,9 @@ function Purchase({ price, discountPrice }: PurchaseProp): React.ReactElement {
     );
 }
 
-export default Purchase;
+export default React.memo(
+    Purchase,
+    (prevProps: PurchaseProp, nextProps: PurchaseProp): boolean =>
+        prevProps.price === nextProps.price &&
+        prevProps.discountPrice === nextProps.discountPrice,
+);
