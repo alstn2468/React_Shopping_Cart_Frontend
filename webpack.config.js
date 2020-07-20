@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = (env) => ({
-    entry: './src/index.tsx',
+    entry: ['@babel/polyfill', './src/index.tsx'],
     resolve: {
         modules: [path.join(__dirname, 'src'), 'node_modules'],
         extensions: ['.ts', '.tsx', '.js'],
@@ -17,7 +17,12 @@ module.exports = (env) => ({
         rules: [
             {
                 test: /\.tsx?$/,
+                loader: 'babel-loader',
+            },
+            {
+                test: /\.tsx?$/,
                 loader: 'ts-loader',
+                options: { transpileOnly: true },
             },
             {
                 test: /\.(png|svg|jpe?g|gif|ico)$/,
@@ -51,6 +56,7 @@ module.exports = (env) => ({
     plugins: [
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
+            inject: true,
             template: './src/index.html',
         }),
         new webpack.DefinePlugin({
