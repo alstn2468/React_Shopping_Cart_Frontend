@@ -75,6 +75,9 @@ function ProductButton({
 export default React.memo(
     ProductButton,
     (prevProps: ProductButtonProp, nextProps: ProductButtonProp): boolean =>
-        prevProps.isInCart === nextProps.isInCart &&
-        prevProps.cartItemCounts === nextProps.cartItemCounts,
+        prevProps.isInCart === nextProps.isInCart
+            ? !prevProps.isInCart && !nextProps.isInCart
+                ? nextProps.cartItemCounts < 3 && prevProps.cartItemCounts < 3
+                : true
+            : false,
 );
