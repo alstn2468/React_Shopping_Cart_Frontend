@@ -1,6 +1,11 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
+type PurchaseButtonProp = {
+    onButtonClicked: () => void;
+    children: string;
+};
+
 const Button = styled.button`
     margin-top: 20px;
     height: 50px;
@@ -17,8 +22,15 @@ const Button = styled.button`
     }
 `;
 
-function PurchaseButton({ onButtonClicked, children }): React.ReactElement {
+function PurchaseButton({
+    onButtonClicked,
+    children,
+}: PurchaseButtonProp): React.ReactElement {
     return <Button onClick={onButtonClicked}>{children}</Button>;
 }
 
-export default PurchaseButton;
+export default React.memo(
+    PurchaseButton,
+    (prevProps: PurchaseButtonProp, nextProps: PurchaseButtonProp): boolean =>
+        prevProps.children === nextProps.children,
+);

@@ -47,5 +47,6 @@ function Item({ pathname, linkTo, children }: ItemProp): React.ReactElement {
 export default React.memo(
     Item,
     (prevProps: ItemProp, nextProps: ItemProp): boolean =>
-        prevProps.children === nextProps.children,
+        prevProps.children === nextProps.children &&
+        prevProps.pathname === nextProps.pathname,
 );

@@ -35,4 +35,4 @@ function CouponDialogCloseButton({
     );
 }
 
-export default CouponDialogCloseButton;
+export default React.memo(CouponDialogCloseButton, () => true);

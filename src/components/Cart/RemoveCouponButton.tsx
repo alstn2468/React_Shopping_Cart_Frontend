@@ -12,6 +12,7 @@ const Button = styled.button`
     font-weight: 600;
     padding: 2px 0;
     color: #000000;
+    cursor: pointer;
     background-color: #ffffff;
     border: 1px solid #000000;
 
@@ -24,4 +25,4 @@ function RemoveCouponButton({ onButtonClicked }): React.ReactElement {
     return <Button onClick={onButtonClicked}>취소</Button>;
 }
 
-export default RemoveCouponButton;
+export default React.memo(RemoveCouponButton, (): boolean => true);
