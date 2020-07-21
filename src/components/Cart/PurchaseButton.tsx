@@ -29,8 +29,4 @@ function PurchaseButton({
     return <Button onClick={onButtonClicked}>{children}</Button>;
 }
 
-export default React.memo(
-    PurchaseButton,
-    (prevProps: PurchaseButtonProp, nextProps: PurchaseButtonProp): boolean =>
-        prevProps.children === nextProps.children,
-);
+export default PurchaseButton;
