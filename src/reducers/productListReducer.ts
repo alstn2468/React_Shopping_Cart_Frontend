@@ -6,7 +6,7 @@ import {
     ProductListAction,
 } from 'actions/productListAction';
 import { createReducer } from 'typesafe-actions';
-import { IProductItem } from 'src/models/IProductItem';
+import { IProductItem } from 'models/IProductItem';
 
 export type ProductListState = {
     loading: boolean;
