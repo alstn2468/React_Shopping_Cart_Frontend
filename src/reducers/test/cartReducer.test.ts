@@ -578,4 +578,37 @@ describe('cartReducer 리듀서 테스트', () => {
             error: null,
         });
     });
+
+    it('카트의 선택되지 않은 상품에 쿠폰을 제거하는 액션 테스트', () => {
+        expect(
+            cartReducer(
+                {
+                    cartItemCounts: 1,
+                    cartItems: [
+                        {
+                            ...testItems1,
+                            coupon: testCoupon,
+                        },
+                        { ...testItems2 },
+                    ],
+                    price: 0,
+                    discountPrice: 0,
+                    error: null,
+                },
+                {
+                    type: REMOVE_COUPON_FROM_PRODUCT,
+                    payload: { productId: 'test', coupon: testCoupon },
+                },
+            ),
+        ).toEqual({
+            cartItemCounts: 1,
+            cartItems: [
+                { ...testItems1, isSelected: false },
+                { ...testItems2 },
+            ],
+            price: 0,
+            discountPrice: 0,
+            error: null,
+        });
+    });
 });

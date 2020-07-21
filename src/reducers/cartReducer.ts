@@ -172,7 +172,9 @@ const cartReducer = createReducer<CartState, CartAction>(initialState, {
             }),
             discountPrice:
                 state.discountPrice -
-                applyCoupon(product.price, action.payload.coupon),
+                (product.isSelected
+                    ? applyCoupon(product.price, action.payload.coupon)
+                    : 0),
         };
     },
 });
