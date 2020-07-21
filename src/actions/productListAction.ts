@@ -1,5 +1,5 @@
 import { deprecated, createAsyncAction, ActionType } from 'typesafe-actions';
-import { IProductItem } from 'src/models/IProductItem';
+import { IProductItem } from 'models/IProductItem';
 
 export const FETCH_PRODUCT_LIST_REQUEST = 'FETCH_PRODUCT_LIST_REQUEST';
 export const FETCH_PRODUCT_LIST_SUCCESS = 'FETCH_PRODUCT_LIST_SUCCESS';

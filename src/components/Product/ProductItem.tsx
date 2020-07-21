@@ -2,7 +2,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'reducers';
-import { ICartItem } from 'src/models/ICartItem';
+import { ICartItem } from 'models/ICartItem';
 import { IProductItem } from 'models/IProductItem';
 import Divisor from 'components/Common/Divisor';
 import ProductScore from 'components/Product/ProductScore';

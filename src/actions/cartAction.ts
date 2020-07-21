@@ -1,14 +1,12 @@
 import { deprecated, ActionType } from 'typesafe-actions';
-import { ICartItem } from 'src/models/ICartItem';
+import { ICartItem } from 'models/ICartItem';
 import { ICouponItem } from 'models/ICouponItem';
 
 export const ADD_PRODUCT_TO_CART = 'ADD_PRODUCT_TO_CART';
 export const REMOVE_PRODUCT_FROM_CART = 'REMOVE_PRODUCT_FROM_CART';
 export const INCREASE_CART_PRODUCT_AMOUNT = 'INCREASE_CART_PRODUCT_AMOUNT';
 export const DECREASE_CART_PRODUCT_AMOUNT = 'DECREASE_CART_PRODUCT_AMOUNT';
-
 export const SELECT_PRODUCT_AT_CART = 'SELECT_BUYING_PRODUCT_AT_CART';
-
 export const ADD_COUPON_AT_PRODUCT = 'ADD_COUPON_AT_PRODUCT';
 export const REMOVE_COUPON_FROM_PRODUCT = 'REMOVE_COUPON_FROM_PRODUCT';
 

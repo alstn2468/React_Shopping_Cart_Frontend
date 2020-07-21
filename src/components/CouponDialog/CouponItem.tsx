@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'reducers';
 import { ICouponItem } from 'models/ICouponItem';
 import { numberWithComma } from 'utils/numberWithComma';
-import { addCouponAtProduct, selectProductAtCart } from 'actions/cartAction';
+import { addCouponAtProduct } from 'actions/cartAction';
 import {
     closeCouponModalDialog,
     removeCouponFromList,

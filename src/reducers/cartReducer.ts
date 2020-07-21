@@ -77,11 +77,6 @@ const cartReducer = createReducer<CartState, CartAction>(initialState, {
             ...state,
             cartItems: newCartItems,
             price: state.price + (product.isSelected ? product.price : 0),
-            discountPrice:
-                state.discountPrice +
-                (product.coupon && !product.isSelected
-                    ? applyCoupon(product.price, product.coupon)
-                    : 0),
         };
     },
     [DECREASE_CART_PRODUCT_AMOUNT]: (state, action) => {
@@ -103,11 +98,6 @@ const cartReducer = createReducer<CartState, CartAction>(initialState, {
             ...state,
             cartItems: newCartItems,
             price: state.price - (product.isSelected ? product.price : 0),
-            discountPrice:
-                state.discountPrice -
-                (product.coupon && !product.isSelected
-                    ? applyCoupon(product.price, product.coupon)
-                    : 0),
         };
     },
     [SELECT_PRODUCT_AT_CART]: (state, action) => {
