@@ -6,12 +6,11 @@
     "moduleFileExtensions": ["ts", "js"],
     "moduleDirectories": ["node_modules", "src"],
     "collectCoverage": true,
+    "verbose": true,
     "globals": {
         "ts-jest": {
             "diagnostics": true
         }
     },
-    "modulePaths": [
-        "<rootDir>/src/"
-    ]
+    "modulePaths": ["<rootDir>/src/"]
 }

@@ -16,14 +16,19 @@
 -   [x] Implement product list page
 -   [x] Implement shopping cart page
 -   [x] Implement pagination component
--   [x] Implement coupon dialong component
+-   [x] Implement coupon dialog component
 -   [x] Sort product list by product score
 -   [x] Implement redux actions, reducers
 -   [x] Redux asynchronous action processing
 -   [x] Split components
 -   [x] Write util function test case
--   [ ] Write redux action, reducer test case
--   [ ] Write component test case
+-   [x] Write redux action, reducer test case
+
+### 사용 가능 스크립트
+
+-   `npm start` : `3001`번 포트로 로컬 개발 환경으로 실행
+-   `npm run build` : `dist` 폴더에 빌드 결과물 생성
+-   `npm test` : `jest`로 작성한 테스트 코드 실행
 
 ### 변경한 요구사항
 
