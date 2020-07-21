@@ -4,6 +4,7 @@
     },
     "testRegex": "\\.test\\.ts$",
     "moduleFileExtensions": ["ts", "js"],
+    "moduleDirectories": ["node_modules", "src"],
     "collectCoverage": true,
     "globals": {
         "ts-jest": {
